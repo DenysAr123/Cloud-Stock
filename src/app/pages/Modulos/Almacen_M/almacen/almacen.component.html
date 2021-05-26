@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header row">
+          <div class="col-md-6">
+            <div class="form-group has-search col-md-8">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder="Buscar Producto..." [(ngModel)]="productSearch" (keyup)="searchProduct()" >
+            </div>
+          </div>
+          <div class="col-md-6" style="text-align: end;padding-right: 28px;"> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productoInsertarModificarModal" (click)="tituloModal='Ingresar Producto';productoSeleccionado={};flag='insert'" >Agregar</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" >
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Stock
+                </th>
+                <th>
+                    U. Medida
+                </th>
+                <th>
+                  Marca
+                </th>
+                <th>
+                  Opciones
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productoList">
+                    <td>
+                        {{producto.codigo}}
+                    </td>
+                    <td>
+                      {{producto.descripcion}}
+                    </td>
+                    <td>
+                      {{producto.precio}}
+                    </td>
+                    <td>
+                      {{producto.stock + ' ' + producto.uniMedida}} 
+                    </td>
+                    <td>
+                     {{ producto.uniMedida}} 
+                    </td>
+                    <td>
+                      {{producto.marca}}
+                    </td>
+                    <td class="optionsrow">
+                        <button type="button" class="btn btn-info" style="margin-right: 10px;margin-bottom: 5px;" data-bs-toggle="modal" data-bs-target="#productoInsertarModificarModal" 
+                        (click)="tituloModal = 'Actualizar Producto';productoSeleccionado = producto;flag='update'" > Actualizar </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarProductoModal" (click)="productoSeleccionado=producto"> Eliminar </button>
+                    </td>
+                </tr>
+                <tr *ngIf="productoList.length == 0 ">
+                  <td>
+                  </td>
+                  <td>
+                  
+                  </td>
+                  <td>
+                    
+                  </td>
+                  <td>
+                    <p class="text-danger" style="font-weight: bold;"> No hay resultados</p>
+                  </td>
+                  <td>
+                  
+                  </td>
+                  <td>
+                  
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  
+<!-- Modal Para Agregar Producto -->
+<div class="modal fade show" id="productoInsertarModificarModal" tabindex="-1" aria-labelledby="productoInsertarModificarModal" aria-hidden="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productoInsertarModal">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+
+            <div class="mb-3">
+              <label for="inputCodigo" class="col-sm-2 col-form-label">Codigo</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputCodigo" value="{{productoSeleccionado.codigo}}" [(ngModel)]="productoSeleccionado.codigo"> 
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputDescripcion" class="col-sm-2 col-form-label">Descripción</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputDescripcion" value="{{productoSeleccionado.descripcion}}" [(ngModel)]="productoSeleccionado.descripcion">
+              </div>
+            </div>
+          
+            <div class="mb-3">
+              <label for="inputPrecio" class="col-sm-2 col-form-label">Precio</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputPrecio" value="{{productoSeleccionado.precio}}" [(ngModel)]="productoSeleccionado.precio">
+              </div>
+            </div>
+
+
+          </div>
+          <div class="col-sm-6">
+            
+            <div class="mb-3">
+              <label for="inputCodigo" class="col-sm-2 col-form-label">Marca </label>
+              <div class="col-sm-10">
+                <select class="form-select" aria-label="Default select example" id="txtMarca" name="txtMarca" [(ngModel)] = "productoSeleccionado.marca_id" >
+                  <option *ngFor="let marca of marcaslist" value="{{marca.marcaID}}" > {{marca.marcaDescripcion}}  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label for="inputCodigo" class="col-sm-6 col-form-label"> Unidad Medida </label>
+              <div class="col-sm-10">
+                <select class="form-select" aria-label="Default select example" id="txtUnmedida" [(ngModel)] = "productoSeleccionado.un_med_id">
+                  <option *ngFor="let unmedida of unMedidaList" value="{{unmedida.unmedID}}" > {{unmedida.unmedDescripcion}}  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label for="inputStock" class="col-sm-6 col-form-label">Stock</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputStock" value="{{productoSeleccionado.stock}}" [(ngModel)]="productoSeleccionado.stock">
+              </div>
+            </div> 
+
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="insertUpdateProducto()" data-bs-dismiss="modal">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Para eliminar -->
+<div class="modal fade show" id="eliminarProductoModal" tabindex="-1" aria-labelledby="eliminarProductoModal" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estas seguro de eliminar producto ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-info mr-2" (click)="removeProducto()" data-bs-dismiss="modal">  Aceptar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> Cancelar </button>
+      </div>
+    </div>
+  </div>
+</div>

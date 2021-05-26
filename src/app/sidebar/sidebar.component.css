@@ -1,0 +1,9 @@
+.nav_sub_list{
+    list-style: none;
+    display: none;
+    transition: all 80.8s ease-out;
+}
+
+.nav_sub_list :hover{
+    color: rgb(57, 119, 170);
+}

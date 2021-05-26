@@ -1,0 +1,213 @@
+<div class="row">
+    <div class="col-sm-6">
+
+      <div class="mb-6">
+        <label for="txtCliente" class="col-sm-2 col-form-label">Cliente:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtCliente"> 
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="txtDireccion" class="col-sm-2 col-form-label">Direccion:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtDireccion" >
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="txtfecha" class="col-sm-6 col-form-label">Fecha de Emision:</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="txtfecha" >
+        </div>
+      </div> 
+
+    </div>
+    <div class="col-sm-6">
+      
+      <div class="mb-6">
+        <label for="txtNumeroRuc" class="col-sm-6 col-form-label">Numero de Ruc o DNI :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtNumeroRuc" >
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="txtNumeroGuiaRem" class="col-sm-6 col-form-label"> Guia de Remision:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtNumeroGuiaRem" >
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="txtfecha" class="col-sm-6 col-form-label">Tipo Documento:</label>
+        <div class="col-sm-10 tipo_documento">
+          <div>
+            <input class="form-check-input" type="radio" name="radio_TipoDocumento" id="radio_Factura" value="Factura">
+            <label class="form-check-label" for="radio_Factura">Factura </label>
+          </div>
+          <div>
+            <input class="form-check-input" type="radio" name="radio_TipoDocumento" id="radio_Boleta" value="Boleta">
+            <label class="form-check-label" for="radio_Boleta">Boleta </label>
+          </div>
+          <div>
+            <input class="form-check-input" type="radio" name="radio_TipoDocumento" id="radio_NotaCredito" value="Boleta">
+            <label class="form-check-label" for="radio_NotaCredito"> Nota Credito </label>
+          </div>
+          <div>
+            <input class="form-check-input" type="radio" name="radio_TipoDocumento" id="radio_NotaDebito" value="Boleta">
+            <label class="form-check-label" for="radio_NotaDebito"> Nota Debito </label>
+          </div>
+        </div>
+      </div> 
+
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header row">
+          <div class="col-md-10 text-center">
+          </div>
+          <div class="col-md-2" style="text-align: end;padding-right: 28px;"> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregrProducto" >Agregar</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class=" text-primary">
+                <th>
+                    Cantidad
+                </th>
+                <th>
+                    Unidad
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    Precio Unitario
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                  
+                </th>
+              </thead>
+                <tbody>
+                  <tr *ngFor="let producto_seleccionado of productoListSeleccionados;" >
+                      <td>
+                        <input type="number" min="1" class="producto_seleccionado_cantidad" [(ngModel)]="producto_seleccionado.cantidad"/>
+                      </td>
+                      <td>
+                        {{producto_seleccionado.uniMedida}}
+                      </td>
+                      <td>
+                        {{producto_seleccionado.descripcion}}
+                      </td>
+                      <td>
+                        {{producto_seleccionado.precio}}
+                      </td>
+                      <td class="subtotal">
+                        {{producto_seleccionado.precio * producto_seleccionado.cantidad | number : '1.2-2' }}
+                      </td>
+                      <td style="display: none;">
+                        <input type="number" class="producto_seleccionado_cantidad" [(ngModel)]="producto_seleccionado.cantidad"/>
+                      </td>
+                  </tr>
+  
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="detalle_final">
+
+  <label for=""> <strong> Valor Venta: </strong></label>
+  <input type="text" name="" id="" value = "{{ valorVenta| number : '1.2-2'}}" disabled>
+  <label for=""> <strong> Valor  IGV: </strong> </label>
+  <input type="text" name="" id="" value = "{{ igvValor| number : '1.2-2'}}"  disabled>
+  <label for=""> <strong> Total: </strong> </label>
+  <input type="text" name="" id="" value = "{{ totalVenta| number : '1.2-2'}}" disabled>
+
+
+  <button type="button" class="btn btn-success"> Guardar </button>
+</div>
+
+
+<div class="modal fade show" id="AgregrProducto" tabindex="-1" aria-labelledby="AgregrProducto" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Agregar Producto </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+              <div class="form-group has-search col-md-12">
+                <input type="text" class="form-control" placeholder="Buscar Producto..." >
+              </div>
+              <div class="table-productos">
+                <table class="table table-hover">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>
+                        Codigo
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th>
+                        U. Medida
+                    </th>
+                    <th>
+                      Marca
+                    </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let producto of productoList" (click)="onSelectProducto(producto)">
+                      <td>
+                        {{producto.codigo}}
+                    </td>
+                    <td>
+                      {{producto.descripcion}}
+                    </td>
+                    <td>
+                      {{producto.precio}}
+                    </td>
+                    <td>
+                      {{producto.stock + ' ' + producto.uniMedida}} 
+                    </td>
+                    <td>
+                     {{ producto.uniMedida}} 
+                    </td>
+                    <td>
+                      {{producto.marca}}
+                    </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger btn-info mr-2" (click)="agregarProduct()" >Agregar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> Salir </button>
+        </div>
+      </div>
+    </div>
+  </div>

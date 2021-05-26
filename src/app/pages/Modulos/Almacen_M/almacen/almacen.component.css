@@ -1,0 +1,53 @@
+.rowOpciones .btn-group button{
+    margin-right: 10px;
+}
+
+.has-search > .form-control {
+    padding-left: 2.375rem;
+}
+.table-responsive {
+     max-height: 65%;;
+}
+.card{
+    margin-bottom: 5px;
+    max-height: 100%;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.table-responsive{
+    padding-left: 15px;
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 2600px) and (-webkit-min-device-pixel-ratio: 1) { 
+    .rowOpciones{
+        max-width: 145px;
+    }
+}
+@media (min-width: 500px) and (max-device-width:732px){
+    .optionsrow > .btn{
+        width:100%;
+    }
+}    
+@media (min-width: 500px){
+    .modal-dialog {
+        min-width: 700px;
+    }
+}
+@media (min-width: 1000px){
+    .optionsrow {
+        width: 320px;
+    }
+}
+.btn {
+    text-transform: none !important;
+}
